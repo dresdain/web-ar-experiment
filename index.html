@@ -5,26 +5,181 @@
     </head>
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
-    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> 
+    <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: true; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
         <a-assets>
             <a-asset-item id="animated-asset" src="https://dresdain.github.io/web-ar-experiment/models/Triforce.gltf"></a-asset-item>
+            <a-asset-item id="animated-asset-2" src="https://dresdain.github.io/web-ar-experiment/models/forest_house/scene.gltf"></a-asset-item> 
+            <a-asset-item id="animated-asset-3" src="https://dresdain.github.io/web-ar-experiment/models/pokeballs/scene.gltf"></a-asset-item> 
+        </a-assets>
+        <a-assets>
+            <img id="logo" src="https://vignette.wikia.nocookie.net/zelda/images/f/fb/The_Legend_of_Zelda_%28logo%29.png/revision/latest?cb=20090404221145">
         </a-assets>
 
-        <a-marker type='barcode' value='21'>
-            <a-box position='0 0.5 0' color="yellow"></a-box>
-        </a-marker>
-
+        <!-- Zelda Study -->
         <a-marker id="animated-marker" type='barcode' value='20'>
+            <!-- Royal Crest -->
             <a-entity
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000" 
                 gltf-model="#animated-asset"
-                position="0.1 0.1 0"
+                position="0.1 3 0"
                 scale="0.05 0.05 0.05">
             </a-entity>
+            <!-- Pillar -->
+            <a-box position='0 0 0' color="brown" scale="1 1.2 1"></a-box>
+            <a-box position='0.5 0.35 0' color="brown" scale="1 0.5 1"></a-box>
+            <a-box position='-0.5 0.35 0' color="brown" scale="1 0.5 1"></a-box>
+            <!-- Zelda Logo sht -->
+            <a-image 
+                animation="property: opacity; to: 1; dur: 2000" 
+                rotation="-90 0 0"
+                opacity="0"
+                position='0 0 3' width="3" height="2" src="#logo"></a-image>
+            <!-- Text stuff -->
+            <a-text 
+                value="Made with <3 by Dain"
+                rotation="-90 0 0"
+                position="-1 0 5" 
+                color="green "></a-text> 
+        </a-marker>
+
+
+        <!-- 3D object Study -->
+        <a-marker id="animated-marker" type='barcode' value='21'>
+            <!-- Poke something -->
+            <a-entity 
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 10000" 
+                gltf-model="#animated-asset-3"
+                position="0 3 0"
+                scale="0.08 0.08 0.08">
+            </a-entity>  
+        </a-marker>
+
+        <!-- 3D object Study -->
+        <a-marker id="animated-marker" type='barcode' value='22'>
+                <!-- Poke something -->
+                <a-entity 
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000" 
+                    gltf-model="#animated-asset-3"
+                    position="0 3 0"
+                    scale="0.08 0.08 0.08">
+                </a-entity>  
+            </a-marker>
+
+
+        <!-- Solar System Study -->
+        <!-- Mixin works similar as functions/reusable 'rules' like in SCSS -->
+        <!-- Rotate -->
+        <a-mixin id="rotation" animation="property: rotation; loop: true; from:  0 0 0; to: 0 360 0; dur: 20000; easing: linear;"></a-mixin>
+        <!-- Oribit them lines -->
+        <a-mixin id="orbit" animation="property: rotation; loop: true; to: 0 360 0; dur: 40000; easing: linear;"></a-mixin>
+
+
+        <!-- Assets -->
+        <a-assets>
+            <img id="sun-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2F1024px-Map_of_the_full_sun.jpg?1540859304920"
+                crossorigin="anonymous">
+            <img id="mercury-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fmercurymap.jpg?1541102122291"
+                crossorigin="anonymous">
+            <img id="venus-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fvenusmap.jpg?1541102155907"
+                crossorigin="anonymous">
+            <img id="earth-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fearthmap1k.jpg?1541102064615"
+                crossorigin="anonymous">
+            <img id="mars-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fmars_1k_color.jpg?1541102234577"
+                crossorigin="anonymous">
+            <img id="jupiter-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fjupitermap.jpg?1541101634813"
+                crossorigin="anonymous">
+            <img id="saturn-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fsaturnmap.jpg?1541102148468"
+                crossorigin="anonymous">
+            <img id="uranus-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Furanusmap.jpg?1541102150185"
+                crossorigin="anonymous">
+            <img id="neptune-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fneptunemap.jpg?1541102137305"
+                crossorigin="anonymous">
+            <img id="pluto-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fplutomap1k.jpg?1541102145905"
+                crossorigin="anonymous">
+            <img id="moon-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2FMoonmap_from_clementine_data.png?1541102132708"
+                crossorigin="anonymous">
+            <a-asset-item id="asteroids" response-type="arraybuffer" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fasteroides.glb?1541106805090"></a-asset-item>
+        </a-assets>
+
+
+        <!--use our new orbit-controls-->
+        <a-entity camera look-controls orbit-controls="target: 0 1.6 -0.5;  initialPosition: -5 5 20"></a-entity> 
+
+        <a-marker id="animated-marker" type='barcode' value='23'> 
+            <!-- The sun charot -->  
+            <a-sphere 
+                id="sun" 
+                position="0 3 0" 
+                radius="0.8" 
+                color="#F5C85D" 
+                src="#sun-texture" mixin="rotation" light="type: point"
+                material="shader: flat;"></a-sphere> 
+            <!-- Mercury drugs -->
+            <a-entity id="orbit-mercury" mixin="orbit" animation="dur: 20000;">
+                <a-sphere id="mercury" position="0 3 2" radius=".3" src="#mercury-texture" mixin="orbit"></a-sphere>
+            </a-entity> 
+
+            <a-entity id="orbit-venus" mixin="orbit">
+                    <a-sphere id="venus" position="0 0 8.5" radius=".4" src="#venus-texture" mixin="rotation"></a-sphere>
+                </a-entity>
+    
+                <a-entity id="orbit-mars" mixin="orbit">
+                    <a-sphere id="mars" position="0 0 12.5" radius=".4" src="#mars-texture" mixin="rotation"></a-sphere>
+                </a-entity>
+    
+                <a-entity id="orbit-jupiter" mixin="orbit" animation="dur: 90000;">
+                    <a-sphere id="jupiter" position="0 0 24" radius="2.5" src="#jupiter-texture" mixin="rotation"></a-sphere>
+                </a-entity>
+    
+                <a-entity id="orbit-pluto" mixin="orbit" animation="dur: 80000;">
+                    <a-sphere id="pluto" position="0 0 46" radius=".4" src="#pluto-texture" mixin="rotation"></a-sphere>
+                </a-entity>
+            
+                <a-entity id="orbit-earth" mixin="orbit" animation="dur: 30000;">
+                        <a-entity id="earth-and-moon" position="0 0 10.5">
+                            <a-entity id="earth-container">
+                                <a-sphere position="0 0 0" radius=".5" id="earth" src="#earth-texture" mixin="rotation"></a-sphere>
+                                <a-entity id="moon-container" mixin="orbit">
+                                    <a-sphere position="-1 0 0" radius=".10" id="moon" src="#moon-texture"></a-sphere>
+                                </a-entity>
+                            </a-entity>
+                        </a-entity>
+                    </a-entity>
+         
+                    <a-entity id="orbit-saturn" mixin="orbit">
+                        <a-entity id="saturn-container" position="0 0 31">
+                            <a-sphere radius="1.8" id="saturn" src="#saturn-texture" mixin="rotation"></a-sphere>
+                            <a-entity id="saturn-ring-1" geometry="primitive: torus; radius: 3.2; radiusTubular: 0.1;segmentsTubular: 50"
+                                material="color: #57524A;" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                            <a-entity id="saturn-ring-2" geometry="primitive: torus; radius: 2.4; radiusTubular: 0.2;segmentsTubular: 50"
+                                material="color: #A29A87;" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                        </a-entity>
+                    </a-entity>
+        
+                    <a-entity id="orbit-uranus" mixin="orbit" animation="dur: 70000;">
+                        <a-entity id="uranus-container" position="0 0 36">
+                            <a-sphere id="uranus" radius=".75" src="#uranus-texture" mixin="rotation"></a-sphere>
+                            <a-entity id="uranus-ring" geometry="primitive: torus; radius: 1.5; radiusTubular: 0.01;segmentsTubular: 50"
+                                material="color: #FFFFFF;" rotation="-10 90 0" scale="1 1 0.1"></a-entity>
+                        </a-entity>
+                    </a-entity>
+        
+                    <a-entity id="orbit-neptune" mixin="orbit" animation="dur: 35000;">
+                        <a-entity id="neptune-container" position="0 0 40">
+                            <a-sphere id="neptune" radius="1" src="#neptune-texture" mixin="rotation"></a-sphere>
+                            <a-entity id="neptune-ring-1" geometry="primitive: torus; radius: 2; radiusTubular: 0.01;segmentsTubular: 50"
+                                material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                            <a-entity id="neptune-ring-2" geometry="primitive: torus; radius: 1.7; radiusTubular: 0.05;segmentsTubular: 50"
+                                material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                            <a-entity id="neptune-ring-3" geometry="primitive: torus; radius: 1.3; radiusTubular: 0.01;segmentsTubular: 50"
+                                material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                        </a-entity>
+                    </a-entity>
         </a-marker>
 
         <a-entity camera></a-entity>
