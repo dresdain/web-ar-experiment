@@ -9,14 +9,20 @@
 
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-
+        <a-scene embedded arjs='sourceType: webcam;'>
+        
+        <!-- Flora model -->
         <a-assets>
-            <a-asset-item id="animated-asset" src="https://dresdain.github.io/web-ar-experiment/models/Triforce.gltf"></a-asset-item>
+            <a-asset-item id="animated-asset" src="https://dresdain.github.io/web-ar-experiment/models/forest_house/scene.gltf"></a-asset-item>
+        </a-assets>
+
+        <!-- WEUI LOGO -->
+        <a-assets>
+            <img id="weui-image" src="https://dresdain.github.io/web-ar-experiment/07-barcode.png">
         </a-assets>
 
         <a-marker type='barcode' value='7'>
-            <a-box position='0 0.5 0' color="yellow"></a-box>
+            <a-image src="#weui-image" width="2" height="2"></a-image>
         </a-marker>
 
         <a-marker id="animated-marker" type='barcode' value='6'>
@@ -26,6 +32,8 @@
             </a-entity>
         </a-marker>
 
+
+        <!-- Camera Scene -->
         <a-entity camera></a-entity>
         </a-scene>
     </body>
